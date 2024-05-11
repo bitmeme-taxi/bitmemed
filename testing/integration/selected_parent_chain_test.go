@@ -10,7 +10,7 @@ import (
 )
 
 func TestVirtualSelectedParentChain(t *testing.T) {
-	// Setup a couple of kaspad instances
+	// Setup a couple of bitmemed instances
 	kaspad1, kaspad2, _, teardown := standardSetup(t)
 	defer teardown()
 

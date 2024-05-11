@@ -388,7 +388,7 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 <a name="protowire.GetCurrentNetworkRequestMessage"></a>
 
 ### GetCurrentNetworkRequestMessage
-GetCurrentNetworkRequestMessage requests the network kaspad is currently running against.
+GetCurrentNetworkRequestMessage requests the network bitmemed is currently running against.
 
 Possible networks are: Mainnet, Testnet, Simnet, Devnet
 
@@ -476,7 +476,7 @@ See: SubmitBlockRequestMessage
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | block | [RpcBlock](#protowire.RpcBlock) |  |  |
-| isSynced | [bool](#bool) |  | Whether kaspad thinks that it&#39;s synced. Callers are discouraged (but not forbidden) from solving blocks when kaspad is not synced. That is because when kaspad isn&#39;t in sync with the rest of the network there&#39;s a high chance the block will never be accepted, thus the solving effort would have been wasted. |
+| isSynced | [bool](#bool) |  | Whether bitmemed thinks that it&#39;s synced. Callers are discouraged (but not forbidden) from solving blocks when bitmemed is not synced. That is because when bitmemed isn&#39;t in sync with the rest of the network there&#39;s a high chance the block will never be accepted, thus the solving effort would have been wasted. |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
 
@@ -532,7 +532,7 @@ See: NotifyBlockAddedRequestMessage
 <a name="protowire.GetPeerAddressesRequestMessage"></a>
 
 ### GetPeerAddressesRequestMessage
-GetPeerAddressesRequestMessage requests the list of known kaspad addresses in the
+GetPeerAddressesRequestMessage requests the list of known bitmemed addresses in the
 current network. (mainnet, testnet, etc.)
 
 
@@ -721,11 +721,11 @@ currently connected to this kaspad.
 | id | [string](#string) |  |  |
 | address | [string](#string) |  |  |
 | lastPingDuration | [int64](#int64) |  | How long did the last ping/pong exchange take |
-| isOutbound | [bool](#bool) |  | Whether this kaspad initiated the connection |
+| isOutbound | [bool](#bool) |  | Whether this bitmemed initiated the connection |
 | timeOffset | [int64](#int64) |  |  |
 | userAgent | [string](#string) |  |  |
 | advertisedProtocolVersion | [uint32](#uint32) |  | The protocol version that this peer claims to support |
-| timeConnected | [int64](#int64) |  | The timestamp of when this peer connected to this kaspad |
+| timeConnected | [int64](#int64) |  | The timestamp of when this peer connected to this bitmemed |
 | isIbdPeer | [bool](#bool) |  | Whether this peer is the IBD peer (if IBD is running) |
 
 
@@ -737,7 +737,7 @@ currently connected to this kaspad.
 
 ### AddPeerRequestMessage
 AddPeerRequestMessage adds a peer to kaspad&#39;s outgoing connection list.
-This will, in most cases, result in kaspad connecting to said peer.
+This will, in most cases, result in bitmemed connecting to said peer.
 
 
 | Field | Type | Label | Description |
@@ -1213,7 +1213,7 @@ current virtual, up to the given limit.
 NotifyUtxosChangedRequestMessage registers this connection for utxoChanged notifications
 for the given addresses.
 
-This call is only available when this kaspad was started with `--utxoindex`
+This call is only available when this bitmemed was started with `--utxoindex`
 
 See: UtxosChangedNotificationMessage
 
@@ -1283,7 +1283,7 @@ See: NotifyUtxosChangedRequestMessage
 StopNotifyingUtxosChangedRequestMessage unregisters this connection for utxoChanged notifications
 for the given addresses.
 
-This call is only available when this kaspad was started with `--utxoindex`
+This call is only available when this bitmemed was started with `--utxoindex`
 
 See: UtxosChangedNotificationMessage
 
@@ -1315,9 +1315,9 @@ See: UtxosChangedNotificationMessage
 <a name="protowire.GetUtxosByAddressesRequestMessage"></a>
 
 ### GetUtxosByAddressesRequestMessage
-GetUtxosByAddressesRequestMessage requests all current UTXOs for the given kaspad addresses
+GetUtxosByAddressesRequestMessage requests all current UTXOs for the given bitmemed addresses
 
-This call is only available when this kaspad was started with `--utxoindex`
+This call is only available when this bitmemed was started with `--utxoindex`
 
 
 | Field | Type | Label | Description |
@@ -1350,7 +1350,7 @@ This call is only available when this kaspad was started with `--utxoindex`
 ### GetBalanceByAddressRequestMessage
 GetBalanceByAddressRequest returns the total balance in unspent transactions towards a given address
 
-This call is only available when this kaspad was started with `--utxoindex`
+This call is only available when this bitmemed was started with `--utxoindex`
 
 
 | Field | Type | Label | Description |
@@ -1551,7 +1551,7 @@ See NotifyVirtualDaaScoreChangedRequestMessage
 NotifyPruningPointUTXOSetOverrideRequestMessage registers this connection for
 pruning point UTXO set override notifications.
 
-This call is only available when this kaspad was started with `--utxoindex`
+This call is only available when this bitmemed was started with `--utxoindex`
 
 See: NotifyPruningPointUTXOSetOverrideResponseMessage
 
@@ -1594,7 +1594,7 @@ See NotifyPruningPointUTXOSetOverrideRequestMessage
 StopNotifyingPruningPointUTXOSetOverrideRequestMessage unregisters this connection for
 pruning point UTXO set override notifications.
 
-This call is only available when this kaspad was started with `--utxoindex`
+This call is only available when this bitmemed was started with `--utxoindex`
 
 See: PruningPointUTXOSetOverrideNotificationMessage
 

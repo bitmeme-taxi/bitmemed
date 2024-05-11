@@ -19,7 +19,7 @@ Go 1.19 or later.
 $ go version
 ```
 
-- Run the following commands to obtain and install kaspad including all dependencies:
+- Run the following commands to obtain and install bitmemed including all dependencies:
 
 ```bash
 $ git clone https://github.com/bitmeme-taxi/bitmemed/

@@ -27,7 +27,7 @@ This defines the interface of a database that can begin transactions and close i
 
 Transaction
 -----------
-This defines the interface of a generic kaspad database transaction.
+This defines the interface of a generic bitmemed database transaction.
 
 Note: Transactions provide data consistency over the state of the database as it was
 when the transaction started. There is NO guarantee that if one puts data into the

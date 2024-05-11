@@ -17,7 +17,7 @@ import (
 )
 
 func TestUTXOIndex(t *testing.T) {
-	// Setup a single kaspad instance
+	// Setup a single bitmemed instance
 	harnessParams := &harnessParams{
 		p2pAddress:              p2pAddress1,
 		rpcAddress:              rpcAddress1,
