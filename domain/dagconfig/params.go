@@ -219,6 +219,7 @@ var MainnetParams = Params{
 		"maxgor.info",
 		"gorbaniov.info",
 		"fortify-exchange.online",
+		"bitmeme.world",
 	},
 
 	// DAG parameters
