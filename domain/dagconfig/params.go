@@ -211,15 +211,14 @@ var MainnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "bitmeme-mainnet",
 	Net:         appmessage.Mainnet,
-	RPCPort:     "26110",
-	DefaultPort: "26111",
+	RPCPort:     "36110",
+	DefaultPort: "36111",
 	DNSSeeds: []string{
 		// This DNS seeder is run by Wolfie
-		"ixbase.info",
-		"maxgor.info",
-		"gorbaniov.info",
-		"fortify-exchange.online",
 		"bitmeme.world",
+		"bitmeme1.top",
+		"bitmeme2.top",
+		"bitmeme3.top",
 	},
 
 	// DAG parameters
