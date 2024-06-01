@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 option go_package = "github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/pb";
-package gorwalletd;
+package btmwalletd;
 
-service gorwalletd {
+service btmwalletd {
   rpc GetBalance (GetBalanceRequest) returns (GetBalanceResponse) {}
   rpc GetExternalSpendableUTXOs (GetExternalSpendableUTXOsRequest) returns (GetExternalSpendableUTXOsResponse) {}
   rpc CreateUnsignedTransactions (CreateUnsignedTransactionsRequest) returns (CreateUnsignedTransactionsResponse) {}

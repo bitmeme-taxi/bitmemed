@@ -31,15 +31,15 @@ type KaspawalletdClient interface {
 	Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error)
 }
 
-type gorwalletdClient struct {
+type btmwalletdClient struct {
 	cc grpc.ClientConnInterface
 }
 
 func NewKaspawalletdClient(cc grpc.ClientConnInterface) KaspawalletdClient {
-	return &gorwalletdClient{cc}
+	return &btmwalletdClient{cc}
 }
 
-func (c *gorwalletdClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error) {
+func (c *btmwalletdClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error) {
 	out := new(GetBalanceResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/GetBalance", in, out, opts...)
 	if err != nil {
@@ -48,7 +48,7 @@ func (c *gorwalletdClient) GetBalance(ctx context.Context, in *GetBalanceRequest
 	return out, nil
 }
 
-func (c *gorwalletdClient) GetExternalSpendableUTXOs(ctx context.Context, in *GetExternalSpendableUTXOsRequest, opts ...grpc.CallOption) (*GetExternalSpendableUTXOsResponse, error) {
+func (c *btmwalletdClient) GetExternalSpendableUTXOs(ctx context.Context, in *GetExternalSpendableUTXOsRequest, opts ...grpc.CallOption) (*GetExternalSpendableUTXOsResponse, error) {
 	out := new(GetExternalSpendableUTXOsResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/GetExternalSpendableUTXOs", in, out, opts...)
 	if err != nil {
@@ -57,7 +57,7 @@ func (c *gorwalletdClient) GetExternalSpendableUTXOs(ctx context.Context, in *Ge
 	return out, nil
 }
 
-func (c *gorwalletdClient) CreateUnsignedTransactions(ctx context.Context, in *CreateUnsignedTransactionsRequest, opts ...grpc.CallOption) (*CreateUnsignedTransactionsResponse, error) {
+func (c *btmwalletdClient) CreateUnsignedTransactions(ctx context.Context, in *CreateUnsignedTransactionsRequest, opts ...grpc.CallOption) (*CreateUnsignedTransactionsResponse, error) {
 	out := new(CreateUnsignedTransactionsResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/CreateUnsignedTransactions", in, out, opts...)
 	if err != nil {
@@ -66,7 +66,7 @@ func (c *gorwalletdClient) CreateUnsignedTransactions(ctx context.Context, in *C
 	return out, nil
 }
 
-func (c *gorwalletdClient) ShowAddresses(ctx context.Context, in *ShowAddressesRequest, opts ...grpc.CallOption) (*ShowAddressesResponse, error) {
+func (c *btmwalletdClient) ShowAddresses(ctx context.Context, in *ShowAddressesRequest, opts ...grpc.CallOption) (*ShowAddressesResponse, error) {
 	out := new(ShowAddressesResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/ShowAddresses", in, out, opts...)
 	if err != nil {
@@ -75,7 +75,7 @@ func (c *gorwalletdClient) ShowAddresses(ctx context.Context, in *ShowAddressesR
 	return out, nil
 }
 
-func (c *gorwalletdClient) NewAddress(ctx context.Context, in *NewAddressRequest, opts ...grpc.CallOption) (*NewAddressResponse, error) {
+func (c *btmwalletdClient) NewAddress(ctx context.Context, in *NewAddressRequest, opts ...grpc.CallOption) (*NewAddressResponse, error) {
 	out := new(NewAddressResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/NewAddress", in, out, opts...)
 	if err != nil {
@@ -84,7 +84,7 @@ func (c *gorwalletdClient) NewAddress(ctx context.Context, in *NewAddressRequest
 	return out, nil
 }
 
-func (c *gorwalletdClient) Shutdown(ctx context.Context, in *ShutdownRequest, opts ...grpc.CallOption) (*ShutdownResponse, error) {
+func (c *btmwalletdClient) Shutdown(ctx context.Context, in *ShutdownRequest, opts ...grpc.CallOption) (*ShutdownResponse, error) {
 	out := new(ShutdownResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/Shutdown", in, out, opts...)
 	if err != nil {
@@ -93,7 +93,7 @@ func (c *gorwalletdClient) Shutdown(ctx context.Context, in *ShutdownRequest, op
 	return out, nil
 }
 
-func (c *gorwalletdClient) Broadcast(ctx context.Context, in *BroadcastRequest, opts ...grpc.CallOption) (*BroadcastResponse, error) {
+func (c *btmwalletdClient) Broadcast(ctx context.Context, in *BroadcastRequest, opts ...grpc.CallOption) (*BroadcastResponse, error) {
 	out := new(BroadcastResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/Broadcast", in, out, opts...)
 	if err != nil {
@@ -102,7 +102,7 @@ func (c *gorwalletdClient) Broadcast(ctx context.Context, in *BroadcastRequest, 
 	return out, nil
 }
 
-func (c *gorwalletdClient) Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error) {
+func (c *btmwalletdClient) Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error) {
 	out := new(SendResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/Send", in, out, opts...)
 	if err != nil {
@@ -111,7 +111,7 @@ func (c *gorwalletdClient) Send(ctx context.Context, in *SendRequest, opts ...gr
 	return out, nil
 }
 
-func (c *gorwalletdClient) Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error) {
+func (c *btmwalletdClient) Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error) {
 	out := new(SignResponse)
 	err := c.cc.Invoke(ctx, "/bitmemewalletd.bitmemewalletd/Sign", in, out, opts...)
 	if err != nil {
