@@ -136,7 +136,7 @@ func (bb *blockBuilder) validateTransactions(stagingArea *model.StagingArea,
 				return err
 			}
 			invalidTransactions = append(invalidTransactions,
-				ruleerrors.InvalidTransaction{Transaction: transaction, Error: &ruleError})
+				ruleerrors.InvalidTransaction{Transaction: transaction, Error: err})
 		}
 	}
 

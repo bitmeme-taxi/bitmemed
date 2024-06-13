@@ -52,7 +52,7 @@ func (ui *UTXOIndex) Reset() error {
 	ui.mutex.Lock()
 	defer ui.mutex.Unlock()
 
-	log.Infof("Starting UTXO index reset")
+	
 
 
 	err := ui.store.deleteAll()
@@ -91,13 +91,7 @@ func (ui *UTXOIndex) Reset() error {
 	}
 
 	// This has to be done last to mark that the reset went smoothly and no reset has to be called next time.
-	err = ui.store.updateAndCommitVirtualParentsWithoutTransaction(virtualInfo.ParentHashes)
-	if err != nil {
-		return err
-	}
-
-	log.Infof("Finished UTXO index reset")
-	return nil
+	return ui.store.updateAndCommitVirtualParentsWithoutTransaction(virtualInfo.ParentHashes)
 }
 
 func (ui *UTXOIndex) isSynced() (bool, error) {

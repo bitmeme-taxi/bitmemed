@@ -3,7 +3,7 @@ package mempool
 import (
 	"fmt"
      
-	"github.com/bitmeme-taxi/bitmemed/domain/consensus/utils/constants"
+
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/model/externalapi"
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/utils/consensushashing"
 )
@@ -45,21 +45,7 @@ func (mp *mempool) validateTransactionInIsolation(transaction *externalapi.Domai
 }
 
 func (mp *mempool) validateTransactionInContext(transaction *externalapi.DomainTransaction) error {
-	hasCoinbaseInput := false
-	for _, input := range transaction.Inputs {
-		if input.UTXOEntry.IsCoinbase() {
-			hasCoinbaseInput = true
-			break
-		}
-	}
-
-	numExtraOuts := len(transaction.Outputs) - len(transaction.Inputs)
-	if !hasCoinbaseInput && numExtraOuts > 2 && transaction.Fee < uint64(numExtraOuts)*constants.SompiPerKaspa {
-		log.Warnf("Rejected spam tx %s from mempool (%d outputs)", consensushashing.TransactionID(transaction), len(transaction.Outputs))
-		return transactionRuleError(RejectSpamTx, fmt.Sprintf("Rejected spam tx %s from mempool", consensushashing.TransactionID(transaction)))
-	}
-
-
+	
 	if !mp.config.AcceptNonStandard {
 		err := mp.checkTransactionStandardInContext(transaction)
 		if err != nil {
