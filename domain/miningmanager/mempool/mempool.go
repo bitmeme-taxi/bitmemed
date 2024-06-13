@@ -8,7 +8,9 @@ import (
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/model/externalapi"
 	miningmanagermodel "github.com/bitmeme-taxi/bitmemed/domain/miningmanager/model"
 
-	"github.com/pkg/errors"
+	"sync"
+
+	
 )
 
 type mempool struct {
