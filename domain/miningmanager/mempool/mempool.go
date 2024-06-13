@@ -1,7 +1,7 @@
 package mempool
 
 import (
-	"sync"
+	
 
 	"github.com/bitmeme-taxi/bitmemed/domain/consensusreference"
     "github.com/bitmeme-taxi/bitmemed/domain/consensus/utils/constants"
