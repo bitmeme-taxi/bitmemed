@@ -69,9 +69,6 @@ func (tc *testConsensus) AddBlock(parentHashes []*externalapi.DomainHash, coinba
 	return consensushashing.BlockHash(block), virtualChangeSet, nil
 }
 
-
-
-
 func (tc *testConsensus) AddUTXOInvalidHeader(parentHashes []*externalapi.DomainHash) (*externalapi.DomainHash,
 	*externalapi.VirtualChangeSet, error) {
 

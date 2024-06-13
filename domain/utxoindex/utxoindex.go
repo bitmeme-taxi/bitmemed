@@ -52,9 +52,6 @@ func (ui *UTXOIndex) Reset() error {
 	ui.mutex.Lock()
 	defer ui.mutex.Unlock()
 
-	
-
-
 	err := ui.store.deleteAll()
 	if err != nil {
 		return err

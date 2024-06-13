@@ -2,7 +2,6 @@ package model
 
 import (
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/model/externalapi"
-	
 )
 
 // Mempool maintains a set of known transactions that
@@ -12,7 +11,7 @@ type Mempool interface {
 	BlockCandidateTransactions() []*externalapi.DomainTransaction
 	ValidateAndInsertTransaction(transaction *externalapi.DomainTransaction, isHighPriority bool, allowOrphan bool) (
 		acceptedTransactions []*externalapi.DomainTransaction, err error)
-		RemoveTransactions(txs []*externalapi.DomainTransaction, removeRedeemers bool) error
+	RemoveTransactions(txs []*externalapi.DomainTransaction, removeRedeemers bool) error
 	GetTransaction(
 		transactionID *externalapi.DomainTransactionID,
 		includeTransactionPool bool,

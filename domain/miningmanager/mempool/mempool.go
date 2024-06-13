@@ -4,13 +4,9 @@ import (
 	"sync"
 
 	"github.com/bitmeme-taxi/bitmemed/domain/consensusreference"
-   
+
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/model/externalapi"
 	miningmanagermodel "github.com/bitmeme-taxi/bitmemed/domain/miningmanager/model"
-
-	
-
-	
 )
 
 type mempool struct {

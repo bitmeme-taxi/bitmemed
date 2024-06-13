@@ -7,16 +7,11 @@ import (
 )
 
 func (mp *mempool) revalidateHighPriorityTransactions() ([]*externalapi.DomainTransaction, error) {
-
-
 	onEnd := logger.LogAndMeasureExecutionTime(log, "revalidateHighPriorityTransactions")
 	defer onEnd()
 
-
-
 	validTransactions := []*externalapi.DomainTransaction{}
-	
-	
+	for _, transaction := range mp.transactionsPool.highPriorityTransactions {
 		isValid, err := mp.revalidateTransaction(transaction)
 		if err != nil {
 			return nil, err

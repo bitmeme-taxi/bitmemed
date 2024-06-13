@@ -577,9 +577,6 @@ func TestRevalidateHighPriorityTransactions(t *testing.T) {
 	})
 }
 
-
-
-
 // TestModifyBlockTemplate verifies that modifying a block template changes coinbase data correctly.
 func TestModifyBlockTemplate(t *testing.T) {
 	testutils.ForAllNets(t, true, func(t *testing.T, consensusConfig *consensus.Config) {
@@ -907,9 +904,6 @@ func createArraysOfParentAndChildrenTransactions(tc testapi.TestConsensus) ([]*e
 func createParentAndChildrenTransactions(tc testapi.TestConsensus) (txParent *externalapi.DomainTransaction,
 	txChild *externalapi.DomainTransaction, err error) {
 
-
-		
-
 	// We will add two blocks by consensus before the parent transactions, in order to fund the parent transactions.
 	tips, err := tc.Tips()
 	if err != nil {
@@ -932,7 +926,7 @@ func createParentAndChildrenTransactions(tc testapi.TestConsensus) (txParent *ex
 	}
 	fundingBlockForParent, _, err := tc.GetBlock(fundingBlockHashForParent)
 	if err != nil {
-		return nil, errors.Wrap(err, "GetBlock: ")
+		return nil, nil, errors.Wrap(err, "GetBlock: ")
 	}
 	fundingTransactionForParent := fundingBlockForParent.Transactions[transactionhelper.CoinbaseTransactionIndex]
 	txParent, err = testutils.CreateTransaction(fundingTransactionForParent, 1000)

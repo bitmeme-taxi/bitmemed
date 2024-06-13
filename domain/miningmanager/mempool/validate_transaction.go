@@ -2,7 +2,6 @@ package mempool
 
 import (
 	"fmt"
-     
 
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/model/externalapi"
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/utils/consensushashing"
@@ -45,7 +44,6 @@ func (mp *mempool) validateTransactionInIsolation(transaction *externalapi.Domai
 }
 
 func (mp *mempool) validateTransactionInContext(transaction *externalapi.DomainTransaction) error {
-	
 	if !mp.config.AcceptNonStandard {
 		err := mp.checkTransactionStandardInContext(transaction)
 		if err != nil {
