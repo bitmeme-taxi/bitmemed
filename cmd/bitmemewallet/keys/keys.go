@@ -22,7 +22,7 @@ import (
 )
 
 var (
-	defaultAppDir = util.AppDir("bitmemwallet", false)
+	defaultAppDir = util.AppDir("bitmemewallet", false)
 )
 
 // LastVersion is the most up to date file format version
