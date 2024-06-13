@@ -7,8 +7,6 @@ import (
 )
 
 
-}
-
 func (mp *mempool) removeTransaction(transactionID *externalapi.DomainTransactionID, removeRedeemers bool) error {
 	if _, ok := mp.orphansPool.allOrphans[*transactionID]; ok {
 		return mp.orphansPool.removeOrphan(transactionID, true)
