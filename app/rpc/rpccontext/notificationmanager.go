@@ -21,7 +21,7 @@ type NotificationManager struct {
 	params    *dagconfig.Params
 }
 
-// UTXOsChangedNotificationAddress represents a bitmemed address.
+// UTXOsChangedNotificationAddress represents a kaspad address.
 // This type is meant to be used in UTXOsChanged notifications
 type UTXOsChangedNotificationAddress struct {
 	Address               string

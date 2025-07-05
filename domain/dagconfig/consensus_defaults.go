@@ -25,7 +25,7 @@ const (
 	defaultMaxCoinbasePayloadLength = 204
 	// defaultMaxBlockMass is a bound on the mass of a block, larger values increase the bound d
 	// on the round trip time of a block, which affects the other parameters as described below
-	defaultMaxBlockMass = 5000_000
+	defaultMaxBlockMass = 500_000
 	// defaultMassPerTxByte, defaultMassPerScriptPubKeyByte and defaultMassPerSigOp define the number of grams per
 	// transaction byte, script pub key byte and sig op respectively.
 	// These values are used when calculating a transactions mass.

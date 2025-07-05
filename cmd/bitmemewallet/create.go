@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/libbitmemewallet"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/libbitmemewallet/bip32"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/utils"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/libkaspawallet"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/libkaspawallet/bip32"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/utils"
 	"github.com/pkg/errors"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/keys"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/keys"
 )
 
 func create(conf *createConfig) error {
@@ -32,8 +32,8 @@ func create(conf *createConfig) error {
 	}
 
 	fmt.Printf("Notice the above is neither a secret key to your wallet " +
-		"(use \"bitmemewallet dump-unencrypted-data\" to see a secret seed phrase) " +
-		"nor a wallet public address (use \"bitmemewallet new-address\" to create and see one)\n\n")
+		"(use \"kaspawallet dump-unencrypted-data\" to see a secret seed phrase) " +
+		"nor a wallet public address (use \"kaspawallet new-address\" to create and see one)\n\n")
 
 	extendedPublicKeys := make([]string, conf.NumPrivateKeys, conf.NumPublicKeys)
 	copy(extendedPublicKeys, signerExtendedPublicKeys)

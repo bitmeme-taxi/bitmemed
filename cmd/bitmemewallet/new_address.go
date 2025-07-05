@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/client"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/pb"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/client"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/pb"
 )
 
 func newAddress(conf *newAddressConfig) error {
@@ -21,7 +21,7 @@ func newAddress(conf *newAddressConfig) error {
 	if err != nil {
 		return err
 	}
-//my-add New address:\n%s\n
-	fmt.Printf("%s", response.Address)
+
+	fmt.Printf("New address:\n%s\n", response.Address)
 	return nil
 }

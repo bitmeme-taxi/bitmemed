@@ -5,7 +5,10 @@ import (
 	"net"
 	"os"
 	"sync"
+	"sync/atomic"
 	"time"
+
+	"github.com/bitmeme-taxi/bitmemed/version"
 
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/model/externalapi"
 
@@ -13,8 +16,8 @@ import (
 
 	"github.com/bitmeme-taxi/bitmemed/util/profiling"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/pb"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/keys"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/pb"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/keys"
 	"github.com/bitmeme-taxi/bitmemed/domain/dagconfig"
 	"github.com/bitmeme-taxi/bitmemed/infrastructure/network/rpcclient"
 	"github.com/bitmeme-taxi/bitmemed/infrastructure/os/signal"
@@ -27,17 +30,23 @@ import (
 type server struct {
 	pb.UnimplementedKaspawalletdServer
 
-	rpcClient *rpcclient.RPCClient
-	params    *dagconfig.Params
+	rpcClient           *rpcclient.RPCClient // RPC client for ongoing user requests
+	backgroundRPCClient *rpcclient.RPCClient // RPC client dedicated for address and UTXO background fetching
+	params              *dagconfig.Params
+	coinbaseMaturity    uint64 // Different from go-kaspad default following Crescendo
 
-	lock                sync.RWMutex
-	utxosSortedByAmount []*walletUTXO
-	nextSyncStartIndex  uint32
-	keysFile            *keys.File
-	shutdown            chan struct{}
-	addressSet          walletAddressSet
-	txMassCalculator    *txmass.Calculator
-	usedOutpoints       map[externalapi.DomainOutpoint]time.Time
+	lock                            sync.RWMutex
+	utxosSortedByAmount             []*walletUTXO
+	mempoolExcludedUTXOs            map[externalapi.DomainOutpoint]*walletUTXO
+	nextSyncStartIndex              uint32
+	keysFile                        *keys.File
+	shutdown                        chan struct{}
+	forceSyncChan                   chan struct{}
+	startTimeOfLastCompletedRefresh time.Time
+	addressSet                      walletAddressSet
+	txMassCalculator                *txmass.Calculator
+	usedOutpoints                   map[externalapi.DomainOutpoint]time.Time
+	firstSyncDone                   atomic.Bool
 
 	isLogFinalProgressLineShown bool
 	maxUsedAddressesForLog      uint32
@@ -59,6 +68,7 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 		profiling.Start(profile, log)
 	}
 
+	log.Infof("Version %s", version.Version())
 	listener, err := net.Listen("tcp", listen)
 	if err != nil {
 		return (errors.Wrapf(err, "Error listening to TCP on %s", listen))
@@ -69,6 +79,10 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 	rpcClient, err := connectToRPC(params, rpcServer, timeout)
 	if err != nil {
 		return (errors.Wrapf(err, "Error connecting to RPC server %s", rpcServer))
+	}
+	backgroundRPCClient, err := connectToRPC(params, rpcServer, timeout)
+	if err != nil {
+		return (errors.Wrapf(err, "Error making a second connection to RPC server %s", rpcServer))
 	}
 
 	log.Infof("Connected, reading keys file %s...", keysFilePath)
@@ -82,13 +96,20 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 		return err
 	}
 
+	// Post-Crescendo coinbase maturity
+	coinbaseMaturity := uint64(1000)
+
 	serverInstance := &server{
 		rpcClient:                   rpcClient,
+		backgroundRPCClient:         backgroundRPCClient,
 		params:                      params,
+		coinbaseMaturity:            coinbaseMaturity,
 		utxosSortedByAmount:         []*walletUTXO{},
+		mempoolExcludedUTXOs:        map[externalapi.DomainOutpoint]*walletUTXO{},
 		nextSyncStartIndex:          0,
 		keysFile:                    keysFile,
 		shutdown:                    make(chan struct{}),
+		forceSyncChan:               make(chan struct{}),
 		addressSet:                  make(walletAddressSet),
 		txMassCalculator:            txmass.NewCalculator(params.MassPerTxByte, params.MassPerScriptPubKeyByte, params.MassPerSigOp),
 		usedOutpoints:               map[externalapi.DomainOutpoint]time.Time{},
@@ -98,8 +119,8 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 	}
 
 	log.Infof("Read, syncing the wallet...")
-	spawn("serverInstance.sync", func() {
-		err := serverInstance.sync()
+	spawn("serverInstance.syncLoop", func() {
+		err := serverInstance.syncLoop()
 		if err != nil {
 			printErrorAndExit(errors.Wrap(err, "error syncing the wallet"))
 		}

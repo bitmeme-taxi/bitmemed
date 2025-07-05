@@ -6,8 +6,9 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/client"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/pb"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/client"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/pb"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/server"
 	"github.com/pkg/errors"
 )
 
@@ -37,7 +38,7 @@ func broadcast(conf *broadcastConfig) error {
 		transactionsHex = strings.TrimSpace(string(transactionHexBytes))
 	}
 
-	transactions, err := decodeTransactionsFromHex(transactionsHex)
+	transactions, err := server.DecodeTransactionsFromHex(transactionsHex)
 	if err != nil {
 		return err
 	}

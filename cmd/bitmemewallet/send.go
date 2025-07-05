@@ -6,11 +6,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/client"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/pb"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/keys"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/libbitmemewallet"
-	"github.com/bitmeme-taxi/bitmemed/domain/consensus/utils/constants"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/client"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/pb"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/keys"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/libkaspawallet"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/utils"
 	"github.com/pkg/errors"
 )
 
@@ -35,7 +35,28 @@ func send(conf *sendConfig) error {
 
 	var sendAmountSompi uint64
 	if !conf.IsSendAll {
-		sendAmountSompi = uint64(conf.SendAmount * constants.SompiPerKaspa)
+		sendAmountSompi, err = utils.KasToSompi(conf.SendAmount)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	var feePolicy *pb.FeePolicy
+	if conf.FeeRate > 0 {
+		feePolicy = &pb.FeePolicy{
+			FeePolicy: &pb.FeePolicy_ExactFeeRate{
+				ExactFeeRate: conf.FeeRate,
+			},
+		}
+	} else if conf.MaxFeeRate > 0 {
+		feePolicy = &pb.FeePolicy{
+			FeePolicy: &pb.FeePolicy_MaxFeeRate{MaxFeeRate: conf.MaxFeeRate},
+		}
+	} else if conf.MaxFee > 0 {
+		feePolicy = &pb.FeePolicy{
+			FeePolicy: &pb.FeePolicy_MaxFee{MaxFee: conf.MaxFee},
+		}
 	}
 
 	createUnsignedTransactionsResponse, err :=
@@ -45,6 +66,7 @@ func send(conf *sendConfig) error {
 			Amount:                   sendAmountSompi,
 			IsSendAll:                conf.IsSendAll,
 			UseExistingChangeAddress: conf.UseExistingChangeAddress,
+			FeePolicy:                feePolicy,
 		})
 	if err != nil {
 		return err
@@ -71,23 +93,29 @@ func send(conf *sendConfig) error {
 		signedTransactions[i] = signedTransaction
 	}
 
-	if len(signedTransactions) > 1 {
-		fmt.Printf("Broadcasting %d transactions\n", len(signedTransactions))
-	}
-
+	fmt.Printf("Broadcasting %d transaction(s)\n", len(signedTransactions))
 	// Since we waited for user input when getting the password, which could take unbound amount of time -
 	// create a new context for broadcast, to reset the timeout.
 	broadcastCtx, broadcastCancel := context.WithTimeout(context.Background(), daemonTimeout)
 	defer broadcastCancel()
 
-	response, err := daemonClient.Broadcast(broadcastCtx, &pb.BroadcastRequest{Transactions: signedTransactions})
-	if err != nil {
-		return err
-	}
-	fmt.Println("Transactions were sent successfully")
-	fmt.Println("Transaction ID(s): ")
-	for _, txID := range response.TxIDs {
-		fmt.Printf("\t%s\n", txID)
+	const chunkSize = 100 // To avoid sending a message bigger than the gRPC max message size, we split it to chunks
+	for offset := 0; offset < len(signedTransactions); offset += chunkSize {
+		end := len(signedTransactions)
+		if offset+chunkSize <= len(signedTransactions) {
+			end = offset + chunkSize
+		}
+
+		chunk := signedTransactions[offset:end]
+		response, err := daemonClient.Broadcast(broadcastCtx, &pb.BroadcastRequest{Transactions: chunk})
+		if err != nil {
+			return err
+		}
+		fmt.Printf("Broadcasted %d transaction(s) (broadcasted %.2f%% of the transactions so far)\n", len(chunk), 100*float64(end)/float64(len(signedTransactions)))
+		fmt.Println("Broadcasted Transaction ID(s): ")
+		for _, txID := range response.TxIDs {
+			fmt.Printf("\t%s\n", txID)
+		}
 	}
 
 	if conf.Verbose {

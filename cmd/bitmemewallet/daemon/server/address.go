@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/pb"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/libbitmemewallet"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/pb"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/libkaspawallet"
 	"github.com/bitmeme-taxi/bitmemed/util"
 	"github.com/pkg/errors"
 )

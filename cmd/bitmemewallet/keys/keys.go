@@ -12,7 +12,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/utils"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/utils"
 
 	"github.com/bitmeme-taxi/bitmemed/domain/dagconfig"
 	"github.com/bitmeme-taxi/bitmemed/util"
@@ -22,7 +22,7 @@ import (
 )
 
 var (
-	defaultAppDir = util.AppDir("bitmemewallet", false)
+	defaultAppDir = util.AppDir("kaspawallet", false)
 )
 
 // LastVersion is the most up to date file format version

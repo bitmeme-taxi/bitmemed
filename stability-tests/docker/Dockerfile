@@ -4,11 +4,11 @@ ARG KASPAMINER_IMAGE
 FROM ${KASPAD_IMAGE} as kaspad
 FROM ${KASPAMINER_IMAGE} as kaspaminer
 
-FROM golang:1.19-alpine
+FROM golang:1.23-alpine
 
-RUN mkdir -p /go/src/github.com/bitmeme-taxi/bitmemed/
+RUN mkdir -p /go/src/github.com/bitmeme-taxi/bitmemed
 
-WORKDIR /go/src/github.com/bitmeme-taxi/bitmemed/
+WORKDIR /go/src/github.com/bitmeme-taxi/bitmemed
 
 RUN apk add bash build-base git
 

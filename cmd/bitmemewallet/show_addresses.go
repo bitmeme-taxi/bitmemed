@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/client"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/daemon/pb"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/client"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/pb"
 )
 
 func showAddresses(conf *showAddressesConfig) error {

@@ -24,7 +24,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 			return nil, err
 		}
 	}
-//my-add
+
 	if !context.Config.AllowSubmitBlockWhenNotSynced && !isSynced {
 		return &appmessage.SubmitBlockResponseMessage{
 			Error:        appmessage.RPCErrorf("Block not submitted - node is not synced"),

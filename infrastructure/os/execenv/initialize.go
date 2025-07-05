@@ -8,7 +8,7 @@ import (
 	"github.com/bitmeme-taxi/bitmemed/infrastructure/os/limits"
 )
 
-// Initialize initializes the execution environment required to run bitmemed
+// Initialize initializes the execution environment required to run kaspad
 func Initialize(desiredLimits *limits.DesiredLimits) {
 	// Use all processor cores.
 	runtime.GOMAXPROCS(runtime.NumCPU())

@@ -23,7 +23,7 @@ func (cf commandFailure) String() string {
 
 func commandLoop(argsChan <-chan []string) ([]commandFailure, error) {
 	failures := make([]commandFailure, 0)
-	dataDirectoryPath, err := common.TempDir("bitmemedsanity-bitmemed-datadir")
+	dataDirectoryPath, err := common.TempDir("kaspadsanity-kaspad-datadir")
 	if err != nil {
 		return nil, errors.Wrapf(err, "error creating temp dir")
 	}
@@ -40,9 +40,9 @@ func commandLoop(argsChan <-chan []string) ([]commandFailure, error) {
 			return nil, err
 		}
 
-		cmd := exec.Command("bitmemed", args...)
-		cmd.Stdout = common.NewLogWriter(log, logger.LevelTrace, "BITMEMED-STDOUT")
-		cmd.Stderr = common.NewLogWriter(log, logger.LevelWarn, "BITMEMED-STDERR")
+		cmd := exec.Command("kaspad", args...)
+		cmd.Stdout = common.NewLogWriter(log, logger.LevelTrace, "KASPAD-STDOUT")
+		cmd.Stderr = common.NewLogWriter(log, logger.LevelWarn, "KASPAD-STDERR")
 
 		log.Infof("Running `%s`", cmd)
 		errChan := make(chan error)

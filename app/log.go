@@ -9,4 +9,4 @@ import (
 	"github.com/bitmeme-taxi/bitmemed/infrastructure/logger"
 )
 
-var log = logger.RegisterSubSystem("BTMD")
+var log = logger.RegisterSubSystem("KASD")

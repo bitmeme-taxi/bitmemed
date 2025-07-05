@@ -7,7 +7,7 @@ import (
 
 func (x *KaspadMessage_TransactionNotFound) toAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "BitmemeMessage_TransactionNotFound is nil")
+		return nil, errors.Wrapf(errorNil, "KaspadMessage_TransactionNotFound is nil")
 	}
 	return x.TransactionNotFound.toAppMessage()
 }

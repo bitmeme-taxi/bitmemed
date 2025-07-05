@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/libbitmemewallet"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/utils"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/libkaspawallet"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/utils"
 	"github.com/bitmeme-taxi/bitmemed/domain/dagconfig"
 	"github.com/pkg/errors"
 	"github.com/tyler-smith/go-bip39"

@@ -2,7 +2,6 @@ package mempool
 
 import (
 	"fmt"
-
 	"github.com/bitmeme-taxi/bitmemed/infrastructure/logger"
 
 	"github.com/bitmeme-taxi/bitmemed/domain/consensus/model/externalapi"

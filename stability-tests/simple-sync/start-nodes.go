@@ -24,20 +24,20 @@ func startNodes() (teardown func(), err error) {
 	)
 
 	log.Infof("Starting nodes")
-	syncerDataDir, err := common.TempDir(bitmemed-datadir-syncer")
+	syncerDataDir, err := common.TempDir("kaspad-datadir-syncer")
 	if err != nil {
 		panic(errors.Wrapf(err, "error in Tempdir"))
 	}
 	log.Infof("SYNCER datadir: %s", syncerDataDir)
 
-	syncedDataDir, err := common.TempDir("bitmemed-datadir-synced")
+	syncedDataDir, err := common.TempDir("kaspad-datadir-synced")
 	if err != nil {
 		panic(errors.Wrapf(err, "error in Tempdir"))
 	}
 	log.Infof("SYNCED datadir: %s", syncedDataDir)
 
-	syncerCmd, err := common.StartCmd("BITMEMED-SYNCER",
-		"bitmemed",
+	syncerCmd, err := common.StartCmd("KASPAD-SYNCER",
+		"kaspad",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", syncerDataDir,
 		"--logdir", syncerDataDir,
@@ -50,8 +50,8 @@ func startNodes() (teardown func(), err error) {
 		return nil, err
 	}
 
-	syncedCmd, err := common.StartCmd("BITMEMED-SYNCED",
-		"bitmemed",
+	syncedCmd, err := common.StartCmd("KASPAD-SYNCED",
+		"kaspad",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", syncedDataDir,
 		"--logdir", syncedDataDir,

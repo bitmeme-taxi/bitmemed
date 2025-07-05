@@ -28,9 +28,9 @@ const (
 
 func startNode(name string, rpcAddress, listen, connect, profilePort, dataDir string) (*exec.Cmd, func(), error) {
 	log.Infof("Data directory for %s is %s", name, dataDir)
-//my-add
+
 	args := []string{
-		"bitmemed",
+		"kaspad",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", dataDir,
 		"--logdir", dataDir,
@@ -119,7 +119,7 @@ func setupNodeWithRPC(name, listen, rpcListen, connect, profilePort, dataDir str
 func setupSyncee() (*rpc.Client, func(), error) {
 	const syncedProfilePort = "6061"
 
-	synceeDataDir, err := useDirOrCreateTemp(activeConfig().SynceeDataDirectory, "syncee-bitmemed-data-dir")
+	synceeDataDir, err := useDirOrCreateTemp(activeConfig().SynceeDataDirectory, "syncee-kaspad-data-dir")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -131,7 +131,7 @@ func setupSyncee() (*rpc.Client, func(), error) {
 func setupSyncer() (*rpc.Client, func(), error) {
 	const syncerProfilePort = "6062"
 
-	syncerDataDir, err := useDirOrCreateTemp(activeConfig().SyncerDataDirectory, "syncer-bitmemed-data-dir")
+	syncerDataDir, err := useDirOrCreateTemp(activeConfig().SyncerDataDirectory, "syncer-kaspad-data-dir")
 	if err != nil {
 		return nil, nil, err
 	}

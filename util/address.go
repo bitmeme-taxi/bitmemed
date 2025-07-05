@@ -55,9 +55,9 @@ const (
 // Map from strings to Bech32 address prefix constants for parsing purposes.
 var stringsToBech32Prefixes = map[string]Bech32Prefix{
 	"btm":     Bech32PrefixKaspa,
-	"btmdev":  Bech32PrefixKaspaDev,
-	"btmtest": Bech32PrefixKaspaTest,
-	"btmsim":  Bech32PrefixKaspaSim,
+	"kaspadev":  Bech32PrefixKaspaDev,
+	"kaspatest": Bech32PrefixKaspaTest,
+	"kaspasim":  Bech32PrefixKaspaSim,
 }
 
 // ParsePrefix attempts to parse a Bech32 address prefix.

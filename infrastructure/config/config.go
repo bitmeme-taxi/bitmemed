@@ -28,11 +28,11 @@ import (
 )
 
 const (
-	defaultConfigFilename      = "bitmemed.conf"
+	defaultConfigFilename      = "kaspad.conf"
 	defaultLogLevel            = "info"
 	defaultLogDirname          = "logs"
-	defaultLogFilename         = "bitmemed.log"
-	defaultErrLogFilename      = "bitmemed_err.log"
+	defaultLogFilename         = "kaspad.log"
+	defaultErrLogFilename      = "kaspad_err.log"
 	defaultTargetOutboundPeers = 8
 	defaultMaxInboundPeers     = 117
 	defaultBanDuration         = time.Hour * 24
@@ -51,15 +51,14 @@ const (
 	//DefaultMaxOrphanTxSize is the default maximum size for an orphan transaction
 	DefaultMaxOrphanTxSize  = 100_000
 	defaultSigCacheMaxSize  = 100_000
-	sampleConfigFilename    = "sample-bitmemed.conf"
+	sampleConfigFilename    = "sample-kaspad.conf"
 	defaultMaxUTXOCacheSize = 5_000_000_000
 	defaultProtocolVersion  = 5
 )
 
 var (
-	// DefaultAppDir is the default home directory for bitmemed.
-//my-add
-	DefaultAppDir = util.AppDir("bitmemed", false)
+	// DefaultAppDir is the default home directory for kaspad.
+	DefaultAppDir = util.AppDir("kaspad", false)
 
 	defaultConfigFile  = filepath.Join(DefaultAppDir, defaultConfigFilename)
 	defaultDataDir     = filepath.Join(DefaultAppDir)
@@ -67,14 +66,14 @@ var (
 	defaultRPCCertFile = filepath.Join(DefaultAppDir, "rpc.cert")
 )
 
-//go:embed sample-bitmemed.conf
+//go:embed sample-kaspad.conf
 var sampleConfig string
 
 // RunServiceCommand is only set to a real function on Windows. It is used
 // to parse and execute service commands specified via the -s flag.
 var RunServiceCommand func(string) error
 
-// Flags defines the configuration options for bitmemed.
+// Flags defines the configuration options for kaspad.
 //
 // See loadConfig for details on the configuration load process.
 type Flags struct {
@@ -85,14 +84,14 @@ type Flags struct {
 	AddPeers                        []string      `short:"a" long:"addpeer" description:"Add a peer to connect with at startup"`
 	ConnectPeers                    []string      `long:"connect" description:"Connect only to the specified peers at startup"`
 	DisableListen                   bool          `long:"nolisten" description:"Disable listening for incoming connections -- NOTE: Listening is automatically disabled if the --connect or --proxy options are used without also specifying listen interfaces via --listen"`
-	Listeners                       []string      `long:"listen" description:"Add an interface/port to listen for connections (default all interfaces port: 36111, testnet: 16211)"`
+	Listeners                       []string      `long:"listen" description:"Add an interface/port to listen for connections (default all interfaces port: 16111, testnet: 16211)"`
 	TargetOutboundPeers             int           `long:"outpeers" description:"Target number of outbound peers"`
 	MaxInboundPeers                 int           `long:"maxinpeers" description:"Max number of inbound peers"`
 	EnableBanning                   bool          `long:"enablebanning" description:"Enable banning of misbehaving peers"`
 	BanDuration                     time.Duration `long:"banduration" description:"How long to ban misbehaving peers. Valid time units are {s, m, h}. Minimum 1 second"`
 	BanThreshold                    uint32        `long:"banthreshold" description:"Maximum allowed ban score before disconnecting and banning misbehaving peers."`
 	Whitelists                      []string      `long:"whitelist" description:"Add an IP network or IP that will not be banned. (eg. 192.168.1.0/24 or ::1)"`
-	RPCListeners                    []string      `long:"rpclisten" description:"Add an interface/port to listen for RPC connections (default port: 36110, testnet: 16210)"`
+	RPCListeners                    []string      `long:"rpclisten" description:"Add an interface/port to listen for RPC connections (default port: 16110, testnet: 16210)"`
 	RPCCert                         string        `long:"rpccert" description:"File containing the certificate file"`
 	RPCKey                          string        `long:"rpckey" description:"File containing the certificate key"`
 	RPCMaxClients                   int           `long:"rpcmaxclients" description:"Max number of RPC clients for standard connections"`
@@ -131,7 +130,7 @@ type Flags struct {
 	ServiceOptions *ServiceOptions
 }
 
-// Config defines the configuration options for bitmemedd.
+// Config defines the configuration options for kaspad.
 //
 // See loadConfig for details on the configuration load process.
 type Config struct {
@@ -197,7 +196,7 @@ func defaultFlags() *Flags {
 	}
 }
 
-// DefaultConfig returns the default bitmemed configuration
+// DefaultConfig returns the default kaspad configuration
 func DefaultConfig() *Config {
 	config := &Config{Flags: defaultFlags()}
 	config.NetworkFlags.ActiveNetParams = &dagconfig.MainnetParams
@@ -213,7 +212,7 @@ func DefaultConfig() *Config {
 //  3. Load configuration file overwriting defaults with any specified options
 //  4. Parse CLI options and overwrite/add any specified options
 //
-// The above results in bitmemed functioning properly without any config settings
+// The above results in kaspad functioning properly without any config settings
 // while still allowing the user to override settings with config files and
 // command line options. Command line options always take precedence.
 func LoadConfig() (*Config, error) {
@@ -576,7 +575,7 @@ func LoadConfig() (*Config, error) {
 	return cfg, nil
 }
 
-// createDefaultConfig copies the file sample-bitmemed.conf to the given destination path,
+// createDefaultConfig copies the file sample-kaspad.conf to the given destination path,
 // and populates it with some randomly generated RPC username and password.
 func createDefaultConfigFile(destinationPath string) error {
 	// Create the destination directory if it does not exists

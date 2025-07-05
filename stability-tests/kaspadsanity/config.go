@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	defaultLogFilename    = "bitmemedsanity.log"
-	defaultErrLogFilename = "bitmemedsanity_err.log"
+	defaultLogFilename    = "kaspadsanity.log"
+	defaultErrLogFilename = "kaspadsanity_err.log"
 )
 
 var (

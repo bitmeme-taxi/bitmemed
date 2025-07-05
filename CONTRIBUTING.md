@@ -1,10 +1,10 @@
-# Contributing to Bitmemed
+# Contributing to Kaspad
 
-Any contribution to Bitmemed is very welcome.
+Any contribution to Kaspad is very welcome.
 
 ## Getting started
 
-If you want to start contributing to Bitmemed and don't know where to start, you can pick an issue from
+If you want to start contributing to Kaspad and don't know where to start, you can pick an issue from
 the [list](https://github.com/bitmeme-taxi/bitmemed/issues).
 
 If you want to make a big change it's better to discuss it first by opening an issue or talk about it in

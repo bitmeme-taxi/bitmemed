@@ -1,6 +1,6 @@
 package database
 
-// Transaction defines the interface of a generic bitmemed database
+// Transaction defines the interface of a generic kaspad database
 // transaction.
 //
 // Note: Transactions provide data consistency over the state of

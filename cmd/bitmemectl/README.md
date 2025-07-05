@@ -4,7 +4,7 @@ kaspactl is an RPC client for kaspad
 
 ## Requirements
 
-Go 1.19 or later.
+Go 1.23 or later.
 
 ## Installation
 
@@ -19,10 +19,10 @@ Go 1.19 or later.
 $ go version
 ```
 
-- Run the following commands to obtain and install bitmemed including all dependencies:
+- Run the following commands to obtain and install kaspad including all dependencies:
 
 ```bash
-$ git clone https://github.com/bitmeme-taxi/bitmemed/
+$ git clone https://github.com/bitmeme-taxi/bitmemed
 $ cd kaspad/cmd/kaspactl
 $ go install .
 ```

@@ -6,8 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/keys"
-	"github.com/bitmeme-taxi/bitmemed/cmd/bitmemewallet/libbitmemewallet"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/daemon/server"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/keys"
+	"github.com/bitmeme-taxi/bitmemed/cmd/gorwallet/libkaspawallet"
 	"github.com/pkg/errors"
 )
 
@@ -40,7 +41,7 @@ func sign(conf *signConfig) error {
 		}
 		transactionsHex = strings.TrimSpace(string(transactionHexBytes))
 	}
-	partiallySignedTransactions, err := decodeTransactionsFromHex(transactionsHex)
+	partiallySignedTransactions, err := server.DecodeTransactionsFromHex(transactionsHex)
 	if err != nil {
 		return err
 	}
@@ -72,6 +73,6 @@ func sign(conf *signConfig) error {
 		fmt.Fprintln(os.Stderr, "Successfully signed transaction")
 	}
 
-	fmt.Println(encodeTransactionsToHex(updatedPartiallySignedTransactions))
+	fmt.Println(server.EncodeTransactionsToHex(updatedPartiallySignedTransactions))
 	return nil
 }

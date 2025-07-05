@@ -209,16 +209,15 @@ func (p *Params) PruningDepth() uint64 {
 // MainnetParams defines the network parameters for the main Kaspa network.
 var MainnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "bitmeme-mainnet",
+	Name:        "btm-mainnet",
 	Net:         appmessage.Mainnet,
 	RPCPort:     "36110",
 	DefaultPort: "36111",
 	DNSSeeds: []string{
-		// This DNS seeder is run by Wolfie
-		"bitmeme.world",
-		"bitmeme1.top",
-		"bitmeme2.top",
-		"bitmeme3.top",
+		"forks.life",
+		"forkex.life",
+		"forks.cloud",
+		"forksweb.online",
 	},
 
 	// DAG parameters
@@ -280,14 +279,14 @@ var MainnetParams = Params{
 // TestnetParams defines the network parameters for the test Kaspa network.
 var TestnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "bitmeme-testnet-10",
+	Name:        "kaspa-testnet-10",
 	Net:         appmessage.Testnet,
-	RPCPort:     "86210",
-	DefaultPort: "86211",
+	RPCPort:     "16210",
+	DefaultPort: "16211",
 	DNSSeeds: []string{
 		"testnet-10-dnsseed.kas.pa",
 		// This DNS seeder is run by Tiram
-		"fortify-exchsnge.online",
+		"seeder1-testnet.kaspad.net",
 	},
 
 	// DAG parameters
@@ -352,10 +351,10 @@ var TestnetParams = Params{
 // just turn into another public testnet.
 var SimnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "bitmeme-simnet",
+	Name:        "kaspa-simnet",
 	Net:         appmessage.Simnet,
-	RPCPort:     "86510",
-	DefaultPort: "86511",
+	RPCPort:     "16510",
+	DefaultPort: "16511",
 	DNSSeeds:    []string{}, // NOTE: There must NOT be any seeds.
 
 	// DAG parameters
@@ -412,10 +411,10 @@ var SimnetParams = Params{
 // DevnetParams defines the network parameters for the development Kaspa network.
 var DevnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "bitmeme-devnet",
+	Name:        "kaspa-devnet",
 	Net:         appmessage.Devnet,
-	RPCPort:     "86610",
-	DefaultPort: "86611",
+	RPCPort:     "16610",
+	DefaultPort: "16611",
 	DNSSeeds:    []string{}, // NOTE: There must NOT be any seeds.
 
 	// DAG parameters

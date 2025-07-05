@@ -693,7 +693,7 @@ func (pm *pruningManager) pruningPointCandidate(stagingArea *model.StagingArea) 
 }
 
 // validateUTXOSetFitsCommitment makes sure that the calculated UTXOSet of the new pruning point fits the commitment.
-// This is a sanity test, to make sure that bitmemed doesn't store, and subsequently sends syncing peers the wrong UTXOSet.
+// This is a sanity test, to make sure that kaspad doesn't store, and subsequently sends syncing peers the wrong UTXOSet.
 func (pm *pruningManager) validateUTXOSetFitsCommitment(stagingArea *model.StagingArea, pruningPointHash *externalapi.DomainHash) error {
 	onEnd := logger.LogAndMeasureExecutionTime(log, "pruningManager.validateUTXOSetFitsCommitment")
 	defer onEnd()

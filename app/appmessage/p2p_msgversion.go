@@ -20,7 +20,7 @@ import (
 const MaxUserAgentLen = 256
 
 // DefaultUserAgent for appmessage in the stack
-var DefaultUserAgent = fmt.Sprintf("/pidmemed:%s/", version.Version())
+var DefaultUserAgent = fmt.Sprintf("/kaspad:%s/", version.Version())
 
 // MsgVersion implements the Message interface and represents a kaspa version
 // message. It is used for a peer to advertise itself as soon as an outbound

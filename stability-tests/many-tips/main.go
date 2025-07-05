@@ -102,14 +102,14 @@ func realMain() error {
 
 func startNode() (teardown func(), err error) {
 	log.Infof("Starting node")
-	dataDir, err := common.TempDir("bitmemed-datadir")
+	dataDir, err := common.TempDir("kaspad-datadir")
 	if err != nil {
 		panic(errors.Wrapf(err, "Error in Tempdir"))
 	}
-	log.Infof("bitmemed datadir: %s", dataDir)
+	log.Infof("kaspad datadir: %s", dataDir)
 
-	kaspadCmd, err := common.StartCmd("BITMEMED",
-		"bitmemed",
+	kaspadCmd, err := common.StartCmd("KASPAD",
+		"kaspad",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", dataDir,
 		"--logdir", dataDir,
@@ -128,11 +128,11 @@ func startNode() (teardown func(), err error) {
 		err := kaspadCmd.Wait()
 		if err != nil {
 			if atomic.LoadUint64(&shutdown) == 0 {
-				panics.Exit(log, fmt.Sprintf("bitmemedCmd closed unexpectedly: %s. See logs at: %s", err, dataDir))
+				panics.Exit(log, fmt.Sprintf("kaspadCmd closed unexpectedly: %s. See logs at: %s", err, dataDir))
 			}
 			if !strings.Contains(err.Error(), "signal: killed") {
-				// TODO: Panic here and check why sometimes bitmemed closes ungracefully
-				log.Errorf("bitmemedCmd closed with an error: %s. See logs at: %s", err, dataDir)
+				// TODO: Panic here and check why sometimes kaspad closes ungracefully
+				log.Errorf("kaspadCmd closed with an error: %s. See logs at: %s", err, dataDir)
 			}
 		}
 		processesStoppedWg.Done()
@@ -140,7 +140,7 @@ func startNode() (teardown func(), err error) {
 	return func() {
 		log.Infof("defer start-node")
 		atomic.StoreUint64(&shutdown, 1)
-		killWithSigterm(kaspadCmd, "bitmemedCmd")
+		killWithSigterm(kaspadCmd, "kaspadCmd")
 
 		processesStoppedChan := make(chan struct{})
 		spawn("startNode-processStoppedWg.Wait", func() {
@@ -240,7 +240,7 @@ func mineLoopUntilHavingOnlyOneTipInDAG(rpcClient *rpc.Client, miningAddress uti
 	startMiningTime := time.Now()
 	shutdown := uint64(0)
 
-	spawn("gor-miner-Cmd.Wait", func() {
+	spawn("kaspa-miner-Cmd.Wait", func() {
 		err := kaspaMinerCmd.Wait()
 		if err != nil {
 			if atomic.LoadUint64(&shutdown) == 0 {

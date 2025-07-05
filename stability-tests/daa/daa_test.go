@@ -15,7 +15,7 @@ import (
 )
 
 const rpcAddress = "localhost:9000"
-const miningAddress = "bitmemedev:qrcqat6l9zcjsu7swnaztqzrv0s7hu04skpaezxk43y4etj8ncwfkuhy0zmax"
+const miningAddress = "kaspadev:qrcqat6l9zcjsu7swnaztqzrv0s7hu04skpaezxk43y4etj8ncwfkuhy0zmax"
 const blockRateDeviationThreshold = 0.5
 const averageBlockRateSampleSize = 60
 const averageHashRateSampleSize = 100_000
@@ -180,7 +180,7 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 	t.Logf("DAA TEST STARTED: %s", testName)
 	defer t.Logf("DAA TEST FINISHED: %s", testName)
 
-	tearDownKaspad := common.RunKaspadForTesting(t, "bitmemed-daa-test", rpcAddress)
+	tearDownKaspad := common.RunKaspadForTesting(t, "kaspad-daa-test", rpcAddress)
 	defer tearDownKaspad()
 
 	rpcClient, err := rpcclient.NewRPCClient(rpcAddress)

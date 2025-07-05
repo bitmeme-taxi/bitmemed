@@ -6,7 +6,7 @@ import (
 )
 
 func TestVirtualSelectedParentBlueScoreAndVirtualDAAScore(t *testing.T) {
-	// Setup a single bitmemed instance
+	// Setup a single kaspad instance
 	harnessParams := &harnessParams{
 		p2pAddress:              p2pAddress1,
 		rpcAddress:              rpcAddress1,

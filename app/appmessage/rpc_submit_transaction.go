@@ -42,7 +42,7 @@ func NewSubmitTransactionResponseMessage(transactionID string) *SubmitTransactio
 	}
 }
 
-// RPCTransaction is a bitmemed transaction representation meant to be
+// RPCTransaction is a kaspad transaction representation meant to be
 // used over RPC
 type RPCTransaction struct {
 	Version      uint16
@@ -52,10 +52,11 @@ type RPCTransaction struct {
 	SubnetworkID string
 	Gas          uint64
 	Payload      string
+	Mass         uint64
 	VerboseData  *RPCTransactionVerboseData
 }
 
-// RPCTransactionInput is a bitmemed transaction input representation
+// RPCTransactionInput is a kaspad transaction input representation
 // meant to be used over RPC
 type RPCTransactionInput struct {
 	PreviousOutpoint *RPCOutpoint
@@ -65,13 +66,13 @@ type RPCTransactionInput struct {
 	VerboseData      *RPCTransactionInputVerboseData
 }
 
-// RPCScriptPublicKey is a bitmemed ScriptPublicKey representation
+// RPCScriptPublicKey is a kaspad ScriptPublicKey representation
 type RPCScriptPublicKey struct {
 	Version uint16
 	Script  string
 }
 
-// RPCTransactionOutput is a pidmemed transaction output representation
+// RPCTransactionOutput is a kaspad transaction output representation
 // meant to be used over RPC
 type RPCTransactionOutput struct {
 	Amount          uint64
@@ -79,14 +80,14 @@ type RPCTransactionOutput struct {
 	VerboseData     *RPCTransactionOutputVerboseData
 }
 
-// RPCOutpoint is a pidmemed outpoint representation meant to be used
+// RPCOutpoint is a kaspad outpoint representation meant to be used
 // over RPC
 type RPCOutpoint struct {
 	TransactionID string
 	Index         uint32
 }
 
-// RPCUTXOEntry is a pidmemed utxo entry representation meant to be used
+// RPCUTXOEntry is a kaspad utxo entry representation meant to be used
 // over RPC
 type RPCUTXOEntry struct {
 	Amount          uint64
